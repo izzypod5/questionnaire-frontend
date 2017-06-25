@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"/>
   <title>Testing REST form params!</title>
   <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,7 +37,7 @@ var CURRENT_PAGE = localStorage.getItem("CURRENT_PAGE");
       questionnaire.questionnaireId + '</td><td>' +
       questionnaire.name + '</td><td>' +
       questionnaire.description + '</td><td>' +
-      '<a class="btn btn-default openQuestionnaireBtn" data-questionnaire=\''+ JSON.stringify(questionnaire) +'\' href="questions.html">Open</a>' +
+      '<a class="btn btn-default openQuestionnaireBtn" href="questions.html" data-questionnaire=\''+ JSON.stringify(questionnaire) +'\'>Open</a>' +
       '<button class="btn btn-default editQuestionnaireBtn" href="create-questionnaire.html" data-questionnaire=\''+ JSON.stringify(questionnaire) +'\' data-title="Edit Questionnaire">Edit</button>' +
       '<button class="btn btn-default deleteQuestionnaireBtn" data-id="' + questionnaire.questionnaireId + '">Delete</button>' +
       '</td></tr>';
@@ -90,7 +90,7 @@ $(document).delegate(".deleteQuestionnaireBtn", "click", function(){
     contentType : "application/json",
     success: function (data) {
       console.log(data);
-      window.location.href = "file:///C:/Users/adaml/OneDrive/Documents/lab-wk4/test-questionnaire/questionnaires.html";
+      window.location.href = "file:///C:/Users/adaml/OneDrive/Documents/lab-wk4/questionnaire-frontend/questionnaires.html";
     }
     ,
 
@@ -109,6 +109,15 @@ $(document).delegate("#createQuestionnaireBtn", "click", function () {
   });
   $('#myModal').modal('show');  
 });
+
+$(document).delegate(".openQuestionnaireBtn", "click", function () {
+  console.log('open questionnaire pressed!');
+  var questionnaire = $(this).data('questionnaire');
+  var path = $(this).attr("href");
+  localStorage.setItem('questionnaire', JSON.stringify(questionnaire));
+  localStorage.removeItem('SIZE');
+  localStorage.removeItem('CURRENT_PAGE');
+});  
 
 $(document).delegate(".editQuestionnaireBtn", "click", function () {
   console.log('edit questionnaire pressed!');
